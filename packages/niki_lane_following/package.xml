@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package>
+  <name>niki_lane_following</name>
+  <version>1.0.0</version>
+  <description>Niki PP attempt</description>
+
+  <maintainer email="nh@nikihowe.com">Niki</maintainer>
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend> 
+</package>
