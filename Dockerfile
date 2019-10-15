@@ -1,5 +1,5 @@
 # parameters
-ARG REPO_NAME="<REPO_NAME_HERE>"
+ARG REPO_NAME="nikihowe"
 
 # ==================================================>
 # ==> Do not change this code
@@ -9,7 +9,7 @@ ARG BASE_TAG=${MAJOR}-${ARCH}
 ARG BASE_IMAGE=niki-dt-core
 
 # define base image
-FROM nikihowe/${BASE_IMAGE}
+FROM duckietown/${BASE_IMAGE}:${BASE_TAG}
 
 # define repository path
 ARG REPO_NAME
