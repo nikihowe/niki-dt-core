@@ -9,7 +9,7 @@ ARG BASE_TAG=${MAJOR}-${ARCH}
 ARG BASE_IMAGE=niki-dt-core
 
 # define base image
-FROM nikihowe/${BASE_IMAGE}:${BASE_TAG}
+FROM nikihowe/${BASE_IMAGE}
 
 # define repository path
 ARG REPO_NAME
