@@ -12,7 +12,7 @@ class pp_lane_controller(object):
         rospy.init_node("lane_controller_node", anonymous=False)
 
         # Subscriptions
-        self.sub_lane_reading = rospy.Subscriber("/chloe/lane_filter_node/seglist_filtered", SegmentList, self.processSegments, queue_size=1)
+        self.sub_lane_reading = rospy.Subscriber("/chloe/lane_filter_node/seglist_filtered", SegmentList, self.process_segments, queue_size=1)
 
         # Publication
         self.pub_car_cmd = rospy.Publisher("/chloe/joy_mapper_node/car_cmd", Twist2DStamped, queue_size=1)
@@ -26,7 +26,7 @@ class pp_lane_controller(object):
         car_control_msg.omega = 0.0 
         self.pub_car_cmd.publish(car_control_msg)
 
-    def processSegments(self, input_segment_list):
+    def process_segments(self, input_segment_list):
         all_segments = input_segment_list.segments # this is a list of type Segment
 
         num_white = 0
