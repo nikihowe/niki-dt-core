@@ -25,7 +25,7 @@ git push
 # (I replaced 'duckietown' with my docker username.)
 
 # EDIT: added this loop that kills and re-attempts if the push takes longer than 3 minutes. 
-dts devel build --push
+dts devel build --push -u nikihowe
 
 echo "removing image from duckiebot"
 docker -H $DUCKIEBOT_NAME.local rmi $DOCKER_USERNAME/$GIT_REPO:$BRANCH_NAME
