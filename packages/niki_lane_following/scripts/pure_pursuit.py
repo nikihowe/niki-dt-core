@@ -63,10 +63,10 @@ class pp_lane_controller(object):
             car_control_msg.omega = -1
         elif num_white == 0: # and num_yellow != 0
             # Want to turn right (improve later)
-            car_control_msg.v = 0.01
+            car_control_msg.v = 0.06
             car_control_msg.omega = -1
         elif num_yellow == 0: # and num_white != 0
-            car_control_msg.v = 0.01
+            car_control_msg.v = 0.06
             car_control_msg.omega = 1
         else: # see both colours
             ave_white_x = total_white_x / num_white
@@ -80,7 +80,7 @@ class pp_lane_controller(object):
             alpha = np.arctan2(full_ave_y, full_ave_x)
             omega = 3 * np.sin(alpha)
 
-            car_control_msg.v = 0.05
+            car_control_msg.v = 0.1
             car_control_msg.omega = omega
 
         # Send the command to the car
