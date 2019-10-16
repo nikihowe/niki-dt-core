@@ -60,13 +60,13 @@ class pp_lane_controller(object):
         # First, corner cases for when see no lines or only one line
         if num_white + num_yellow == 0:
             car_control_msg.v = 0.0
-            car_control_msg.omega = -0.5
+            car_control_msg.omega = -1
         elif num_white == 0: # and num_yellow != 0
             # Want to turn right (improve later)
-            car_control_msg.v = 0.1
+            car_control_msg.v = 0.01
             car_control_msg.omega = -1
         elif num_yellow == 0: # and num_white != 0
-            car_control_msg.v = 0.1
+            car_control_msg.v = 0.01
             car_control_msg.omega = 1
         else: # see both colours
             ave_white_x = total_white_x / num_white
@@ -78,9 +78,9 @@ class pp_lane_controller(object):
             full_ave_y = (ave_white_y + ave_yellow_y) / 2.
 
             alpha = np.arctan2(full_ave_y, full_ave_x)
-            omega = 2 * np.sin(alpha)
+            omega = 3 * np.sin(alpha)
 
-            car_control_msg.v = 0.3
+            car_control_msg.v = 0.05
             car_control_msg.omega = omega
 
         # Send the command to the car
