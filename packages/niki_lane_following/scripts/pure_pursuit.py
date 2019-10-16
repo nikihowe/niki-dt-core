@@ -17,6 +17,15 @@ class pp_lane_controller(object):
         # Publication
         self.pub_car_cmd = rospy.Publisher("/chloe/joy_mapper_node/car_cmd", Twist2DStamped, queue_size=1)
 
+        # Stop on shutdown
+        rospy.on_studwon(self.custom_shutdown)
+
+    def custom_shutdown(self):
+        car_control_msg = Twist2DStamped()
+        car_control_msg.v = 0.0
+        car_control_msg.omega = 0.0 
+        self.pub_car_cmd.publish(car_control_msg)
+
     def processSegments(self, input_segment_list):
         all_segments = input_segment_list.segments # this is a list of type Segment
 
