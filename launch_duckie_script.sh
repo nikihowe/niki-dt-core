@@ -13,7 +13,7 @@ timeout_delay=120
 # add, commit, and push the recent changes (commit -s -v will open an editor window if there are any changes)   
 git add .
 git checkout $BRANCH_NAME
-git commit -s -v
+git commit -s -v -m "Run on duckie"
 git push
 
 # push the docker image to dockerhub
