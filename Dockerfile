@@ -6,7 +6,7 @@ ARG REPO_NAME="nikihowe"
 ARG ARCH=arm32v7
 ARG MAJOR=daffy
 ARG BASE_TAG=${MAJOR}-${ARCH}
-ARG BASE_IMAGE=niki-dt-core
+ARG BASE_IMAGE=dt-core
 
 # define base image
 FROM duckietown/${BASE_IMAGE}:${BASE_TAG}
