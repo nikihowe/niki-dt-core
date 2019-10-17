@@ -8,14 +8,18 @@ import time
 class pp_lane_controller(object):
     def __init__(self):
 
+        self.cur_v = 0.
+        self.cur_omega = 0.
+
         location = "default" # change this to run in sim / on robot
-        location = "chloe"
+        #location = "chloe"
 
         # Start rospy for this node
         rospy.init_node("lane_controller_node", anonymous=False)
 
         # Subscriptions
         self.sub_lane_reading = rospy.Subscriber("/{}/lane_filter_node/seglist_filtered".format(location), SegmentList, self.process_segments, queue_size=1)
+        self.sub_lane_pose = rospy.Subscriber("/{}/lane_filter_node/lane_pose".format(location), LanePose, self.record_lane_pose, queue_size=1)
 
         # Publication
         self.pub_car_cmd = rospy.Publisher("/{}/joy_mapper_node/car_cmd".format(location), Twist2DStamped, queue_size=1)
@@ -23,10 +27,23 @@ class pp_lane_controller(object):
         # Stop on shutdown
         rospy.on_shutdown(self.custom_shutdown)
 
+        # Will save the output here
+        self.output_file = open("/data/logs/error_output","w")
+    
+    def record_lane_pose(self, input_lane_pose):
+        # Save the output whenever it comes in
+        self.output_file.write("time {}\n".format(time.time()))
+        self.output_file.write("d {}\n".format(input_lane_pose.d))
+        self.output_file.write("phi {}\n".format(input_lane_pose.phi))
+        self.output_file.write("v {}\n".format(self.cur_v))
+        self.output_file.write("omega {}\n".format(self.cur_omega))
+        self.output_file.write("\n")
+
     def custom_shutdown(self):
         car_control_msg = Twist2DStamped()
         car_control_msg.v = 0.0
         car_control_msg.omega = 0.0 
+        self.output_file.close()
         self.pub_car_cmd.publish(car_control_msg)
 
     def process_segments(self, input_segment_list):
@@ -90,8 +107,8 @@ class pp_lane_controller(object):
 
         if num_white + num_yellow == 0:
             # Want to turn right (improve later)
-            car_control_msg.v = 0.15
-            car_control_msg.omega = -2
+            car_control_msg.v = 0.2
+            car_control_msg.omega = -3
 
         elif num_white == 0: # and num_yellow != 0
             if num_yellow_far > 0:
@@ -102,9 +119,9 @@ class pp_lane_controller(object):
                 ave_yellow[1] -= 0.25 # subtract offset
 
             alpha = np.arctan2(ave_yellow[1], ave_yellow[0])
-            omega = 6 * np.sin(alpha)
+            omega = 7 * np.sin(alpha)
 
-            car_control_msg.v = 0.2
+            car_control_msg.v = 0.25
             car_control_msg.omega = omega
 
         elif num_yellow == 0: # and num_white != 0
@@ -116,9 +133,9 @@ class pp_lane_controller(object):
                 ave_white += 0.25 # add offset
 
             alpha = np.arctan2(ave_white[1], ave_white[0])
-            omega = 6 * np.sin(alpha)
+            omega = 7 * np.sin(alpha)
 
-            car_control_msg.v = 0.2
+            car_control_msg.v = 0.25
             car_control_msg.omega = omega
 
         else: # see both colours
@@ -136,6 +153,9 @@ class pp_lane_controller(object):
 
             car_control_msg.v = 0.4
             car_control_msg.omega = omega
+
+        self.cur_v = car_control_msg.v
+        self.cur_omega = car_control_msg.omega
 
         # Send the command to the car
         self.pub_car_cmd.publish(car_control_msg)
