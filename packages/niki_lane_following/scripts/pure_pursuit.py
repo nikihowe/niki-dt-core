@@ -104,7 +104,7 @@ class pp_lane_controller(object):
             alpha = np.arctan2(ave_yellow[1], ave_yellow[0])
             omega = 4 * np.sin(alpha)
 
-            car_control_msg.v = 0.1
+            car_control_msg.v = 0.2
             car_control_msg.omega = omega
 
         elif num_yellow == 0: # and num_white != 0
@@ -118,7 +118,7 @@ class pp_lane_controller(object):
             alpha = np.arctan2(ave_white[1], ave_white[0])
             omega = 4 * np.sin(alpha)
 
-            car_control_msg.v = 0.1
+            car_control_msg.v = 0.2
             car_control_msg.omega = omega
 
         else: # see both colours
@@ -134,7 +134,7 @@ class pp_lane_controller(object):
             alpha = np.arctan2(overall_ave[1], overall_ave[0])
             omega = 2 * np.sin(alpha)
 
-            car_control_msg.v = 0.2
+            car_control_msg.v = 0.4
             car_control_msg.omega = omega
 
         # Send the command to the car
