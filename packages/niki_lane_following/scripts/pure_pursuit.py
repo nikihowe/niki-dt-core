@@ -52,7 +52,7 @@ class pp_lane_controller(object):
         total_yellow = np.zeros(2)
         total_yellow_far = np.zeros(2)
 
-        far = 0.5
+        far = 0.2
 
         for segment in all_segments:
 
@@ -102,7 +102,7 @@ class pp_lane_controller(object):
                 ave_yellow[1] -= 0.25 # subtract offset
 
             alpha = np.arctan2(ave_yellow[1], ave_yellow[0])
-            omega = 7 * np.sin(alpha)
+            omega = 6 * np.sin(alpha)
 
             car_control_msg.v = 0.2
             car_control_msg.omega = omega
@@ -116,7 +116,7 @@ class pp_lane_controller(object):
                 ave_white += 0.25 # add offset
 
             alpha = np.arctan2(ave_white[1], ave_white[0])
-            omega = 7 * np.sin(alpha)
+            omega = 6 * np.sin(alpha)
 
             car_control_msg.v = 0.2
             car_control_msg.omega = omega
@@ -134,7 +134,7 @@ class pp_lane_controller(object):
             alpha = np.arctan2(overall_ave[1], overall_ave[0])
             omega = 3 * np.sin(alpha)
 
-            car_control_msg.v = 0.4
+            car_control_msg.v = 0.3
             car_control_msg.omega = omega
 
         # Send the command to the car
