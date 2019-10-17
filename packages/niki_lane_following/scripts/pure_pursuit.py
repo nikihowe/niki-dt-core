@@ -134,7 +134,7 @@ class pp_lane_controller(object):
             alpha = np.arctan2(overall_ave[1], overall_ave[0])
             omega = 3 * np.sin(alpha)
 
-            car_control_msg.v = 0.3
+            car_control_msg.v = 0.4
             car_control_msg.omega = omega
 
         # Send the command to the car
