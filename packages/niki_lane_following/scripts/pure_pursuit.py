@@ -52,7 +52,7 @@ class pp_lane_controller(object):
         total_yellow = np.zeros(2)
         total_yellow_far = np.zeros(2)
 
-        far = 0.4
+        far = 0.5
 
         for segment in all_segments:
 
@@ -90,8 +90,8 @@ class pp_lane_controller(object):
 
         if num_white + num_yellow == 0:
             # Want to turn right (improve later)
-            car_control_msg.v = 0.1
-            car_control_msg.omega = -3
+            car_control_msg.v = 0.15
+            car_control_msg.omega = -2
 
         elif num_white == 0: # and num_yellow != 0
             if num_yellow_far > 0:
@@ -134,7 +134,7 @@ class pp_lane_controller(object):
             alpha = np.arctan2(overall_ave[1], overall_ave[0])
             omega = 3 * np.sin(alpha)
 
-            car_control_msg.v = 0.3
+            car_control_msg.v = 0.4
             car_control_msg.omega = omega
 
         # Send the command to the car
