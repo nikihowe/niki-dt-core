@@ -119,7 +119,7 @@ class pp_lane_controller(object):
                 ave_yellow[1] -= 0.25 # subtract offset
 
             alpha = np.arctan2(ave_yellow[1], ave_yellow[0])
-            omega = 7 * np.sin(alpha)
+            omega = 6 * np.sin(alpha)
 
             car_control_msg.v = 0.25
             car_control_msg.omega = omega
@@ -133,7 +133,7 @@ class pp_lane_controller(object):
                 ave_white += 0.25 # add offset
 
             alpha = np.arctan2(ave_white[1], ave_white[0])
-            omega = 7 * np.sin(alpha)
+            omega = 6 * np.sin(alpha)
 
             car_control_msg.v = 0.25
             car_control_msg.omega = omega
