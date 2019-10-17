@@ -1,5 +1,5 @@
 # parameters
-ARG REPO_NAME="nikihowe"
+ARG REPO_NAME="nikihowe2"
 
 # ==================================================>
 # ==> Do not change this code
