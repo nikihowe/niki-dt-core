@@ -12,7 +12,7 @@ class pp_lane_controller(object):
         self.cur_omega = 0.
 
         location = "default" # change this to run in sim / on robot
-        #location = "chloe"
+        location = "chloe"
 
         # Start rospy for this node
         rospy.init_node("lane_controller_node", anonymous=False)
